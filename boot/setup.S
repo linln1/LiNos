@@ -88,6 +88,10 @@ novga:	mov	[14],ax
 	movsb
 
 ! Check that there IS a hd1 :-)
+！检查是否有第二个硬盘，如果没有就把表清空
+! 利用BIOS中断调用0x13 ah=0x15
+! dl=驱动器号(0x8X 0x80是第一个硬盘，0x81是第二个)
+！输出ah=类型码，00-没有这个盘，CF置位
 
 	mov	ax,#0x01500
 	mov	dl,#0x81
@@ -95,6 +99,8 @@ novga:	mov	[14],ax
 	jc	no_disk1
 	cmp	ah,#3
 	je	is_disk1
+
+! 没硬盘就清空
 no_disk1:
 	mov	ax,#INITSEG
 	mov	es,ax
@@ -110,7 +116,7 @@ is_disk1:
 	cli			! no interrupts allowed !
 
 ! first we move the system to it's rightful place
-
+! 将system 模块移动到开始的位置
 	mov	ax,#0x0000
 	cld			! 'direction'=0, movs moves forward
 do_move:
@@ -127,6 +133,11 @@ do_move:
 	jmp	do_move
 
 ! then we load the segment descriptors
+! 遇到32位保护模式的操作，因此需要Intel32位保护模式，
+! lidt 加载中断描述符表IDT寄存器，他的操作数有6字节。前两字节是描述符表的字节长度值，后四字节是描述符表的32位线性地址
+! 中断描述符表的每一8字节表项指出发生中断是需要调用的代码信息
+
+！lgdt 指令用于加载GDT，操作数格式和lidt指令相同，8字节包括段最大长度限制16位，段线性地址基址32位，段特权级，是否在内存，读写许可权
 
 end_move:
 	mov	ax,#SETUPSEG	! right, forgot this at first. didn't work :-)
@@ -558,7 +569,11 @@ docr:	push	ax
 	pop	cx
 	pop	ax
 	ret	
-	
+/*
+ * 多个八个字节长的描述符数组组成，这里给出三个描述符项，第一项空，第二项是系统代码描述段，第三段是系统数据描述段
+ */
+
+
 gdt:
 	.word	0,0,0,0		! dummy
 
