@@ -1,6 +1,13 @@
 # LiNos
 ## My re-write of the linux OS 0.11-version
 
+## Developing Environment 
+    - Windows10
+    - bochs 2.6.11
+    - NASM 2.11.02.exe
+    - rawrite2.0
+
+
 ## All the files
 - /boot   *all the flies that controls the bootup*
 - /fs   *all the files that related to the filesystem*
@@ -15,6 +22,14 @@
 
 ## Note
     Makefile calls up all the makefile in the directories and make them together to get the LiNOS
+
+## /boot/bootsect.S
+    add some function to get a better debug experience
+    such as:
+        print_ln
+        print_hex
+    chang some ungly writing style in linux-0.11 such as mov ax,#0  -> xor ax, ax
+    when failing to kill_driver_motor, now I printed the status of the dirver
 
 ## [TO DO LIST]
     [] implement buddy system
@@ -31,7 +46,6 @@
 
 ## LiNos Design Target
 # ![Target](MyOS设计目标.png)
-
 
 ## Kernel Structure
 # ![Kernel](Kernel Architecture.png)
