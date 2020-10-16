@@ -23,13 +23,23 @@
 ## Note
     Makefile calls up all the makefile in the directories and make them together to get the LiNOS
 
-## /boot/bootsect.S
+### */boot/bootsect.S*
     add some function to get a better debug experience
     such as:
         print_ln
         print_hex
     chang some ungly writing style in linux-0.11 such as mov ax,#0  -> xor ax, ax
     when failing to kill_driver_motor, now I printed the status of the dirver
+
+### */boot/setup.s*
+    add some fucntion to get a better debug experience
+
+### */boot/head.s*
+    add some fucntion to get a better debug experience
+
+### */init/main.c*
+    
+
 
 ## [TO DO LIST]
     [] implement buddy system
