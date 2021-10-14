@@ -1,46 +1,12 @@
-#ifndef _STDARG_H
-#define _STDARG_H
+#ifndef __LIBS_STDARG_H__
+#define __LIBS_STDARG_H__
 
+/* compiler provides size of save area */
+typedef __builtin_va_list va_list;
 
-#ifndef __VA_LIST
-#define __VA_LIST
-typedef char *va_list;
-#endif /* __VA_LIST */
+#define va_start(ap, last)              (__builtin_va_start(ap, last))
+#define va_arg(ap, type)                (__builtin_va_arg(ap, type))
+#define va_end(ap)                      /*nothing*/
 
-/* 从list中找到param1,指针指向下一个*/
-#define va_start(list,param1)   ( list = (va_list)&param1+ sizeof(param1) )
+#endif /* !__LIBS_STDARG_H__ */
 
-/* 返回类型为mode的第一个参数 */
-#define va_arg(list,mode)   ( (mode *) ( list += sizeof(mode) ) )[-1]
-
-/* 返回 */
-#define va_end(list) ( list = (va_list)0 )
-
-/**/
-//void a(char* arg1, char* arg2, char* arg3)
-//{
-//    va_list list;
-//    ......
-//        return;
-//}
-/*
- *                            +---------------------------------+
- *                            |                                 |
- *                            |				arg3			    | 
- *                            |                                 |
- *                            +---------------------------------+
- *                            |                                 |
- *                            |				arg2			    | 
- *                            |                                 |
- *                            +---------------------------------+ 
- *                            |                                 |
- *                            |				arg1			    | 
- *                            |                                 |
- *                            +---------------------------------+ 
- *                            |             list                |
- *                            +---------------------------------+ 
- *                            |           User stack            |
- *                            +---------------------------------+
-*/
-
-#endif

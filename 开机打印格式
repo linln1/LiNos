@@ -1,0 +1,25 @@
+
+1. Special kernel symbols:
+
+2. e820map:
+
+3. 打印虚拟地址空间
+
+4. 磁盘 ide 0:      10000(sectors), 'QEMU HARDDISK'.
+
+5. 页目录 PDE
+
+6. 物理内存管理器 memory management:
+
+7. 调度算法 sched class: 
+
+8. 虚拟内存管理器 SWAP: manager =
+
+9. OS 符号
+
+10. 作者
+
+BEGIN check_swap:
+
+
+
